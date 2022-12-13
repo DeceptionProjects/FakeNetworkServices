@@ -14,7 +14,7 @@ from time import strftime
 from twisted.python.logfile import LogFile
 from twisted.enterprise import adbapi
 from re import match
-from common import PotFactory
+from .common import PotFactory
 
 
 publicKey = b'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwRDx36H79uAlt4aGFonJvm7V8cUttqShwg9eYHZnFNc/Sb5L+ERf1TnMx/eqcnFesBzbltdBfXfQkaRHNA1GHBGec0OcaDwGGXGMGWGyyUB8hB+7ftpyWbsCnN3qBSoGfIo1JnEUXpsQ0B0EnMiQqHo7TImG7LVSiV6tsUuhSWX8s3zXPLLcL/CCS+p6wK6Y7EmF+YylcOPkvG05Kvzzb6WWFFGop7/mqOLL9lrgYbjjsSQkQXR2NC2QunWkiB0/r2MaaeLamv4HUmPUw2lPgPlibpmnu1BkLayIXEOJiFEsDSCXm81IKj0aMez0f6FY8sDpd9lLnsFbjyOhzTmJ6w=='

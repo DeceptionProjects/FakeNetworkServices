@@ -2,7 +2,7 @@ from twisted.conch.insults import insults
 from twisted.conch.telnet import TelnetTransport, StatefulTelnetProtocol
 from twisted.internet import protocol
 from twisted.internet import reactor
-from common import PotFactory
+from .common import PotFactory
 
 class TelnetPotProtocol(StatefulTelnetProtocol):
     state = 'User'

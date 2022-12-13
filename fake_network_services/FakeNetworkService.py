@@ -1,10 +1,9 @@
 import argparse
 
-from sshpot import PotSSHFactory
-from telnetpot import PotTelnetFactory
-from ftppot import PotFTPFactory
+from .sshpot import PotSSHFactory
+from .telnetpot import PotTelnetFactory
+from .ftppot import PotFTPFactory
 from twisted.internet import reactor
-import os
 
 class FakeNetworkService:
     def __init__(self, port, log_path):
@@ -27,24 +26,19 @@ class FakeNetworkService:
         reactor.run()
 
     def run(self, service_to_run: str):
-        pid = os.fork()
-
-        if pid == 0:
-            if service_to_run == 'ssh':
-                self.start_ssh()
-            elif service_to_run == 'ftp':
-                self.start_ftp()
-            elif service_to_run == 'telnet':
-                self.start_telnet()
-
-        print(f'Service PID: {pid}')
+        if service_to_run == 'ssh':
+            self.start_ssh()
+        elif service_to_run == 'ftp':
+            self.start_ftp()
+        elif service_to_run == 'telnet':
+            self.start_telnet()
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--port', help='Port')
+    parser.add_argument('-p', '--port', type=int, help='Port')
     parser.add_argument('-s', '--service', help='Service')
     args = parser.parse_args()
 
     fakeService = FakeNetworkService(args.port, './local.log')
-    fakeService.run(args.port)
+    fakeService.run(args.service)
