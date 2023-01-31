@@ -2,3 +2,4 @@ twisted
 bcrypt
 pyasn1
 cryptography
+requests

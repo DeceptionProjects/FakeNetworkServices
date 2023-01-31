@@ -1,12 +1,15 @@
 from time import strftime
 from twisted.python import log
 
+import requests
+
 class PotFactory:
-    def __init__(self, logfile=None, proto=None):
+    def __init__(self, logfile=None, proto=None, logserver=None):
         self.logfile = logfile
         self.proto = proto
+        self.logserver = logserver
 
-    def updatePot(self, login, password, host):
+    def update_pot(self, login, password, host):
         proto_str = ""
         if self.proto:
             proto_str = self.proto
@@ -15,3 +18,8 @@ class PotFactory:
             line = "%s %s: %s : %s : %s\n" % (strftime('%F %T'), proto_str, host, login.decode("utf8"), password.decode("utf8"))
 
             open(self.logfile, 'a').write(line)
+
+    def alert_defender(self):
+        if self.logserver:
+            data = {'type': 'service', 'protocol': self.proto}
+            r = requests.post(self.logserver, data=data)

@@ -10,6 +10,7 @@ from twisted.conch import unix, interfaces
 from twisted.internet import defer
 
 import random
+import requests
 from time import strftime
 from twisted.python.logfile import LogFile
 from twisted.enterprise import adbapi
@@ -111,7 +112,11 @@ class PotSSHUserAuthServer(userauth.SSHUserAuthServer):
     def auth_password(self, packet):
         password = getNS(packet[1:])[0]
         host = self.transport.transport.getPeer().host
-        self.transport.factory.updatePot(self.user, password, host)
+        self.transport.factory.update_pot(self.user, password, host)
+
+        # Send alert to defender that someone is interacting with honeypot
+        self.transport.factory.alert_defender()
+
         return None
 
 class PotSSHFactory(factory.SSHFactory, PotFactory):
@@ -123,8 +128,8 @@ class PotSSHFactory(factory.SSHFactory, PotFactory):
     publicKeys = {b'ssh-rsa': keys.Key.fromString(publicKey)}
     privateKeys = {b'ssh-rsa': keys.Key.fromString(privateKey)}
 
-    def __init__(self, logfile=None, proto=None):
-        PotFactory.__init__(self, logfile, proto)
+    def __init__(self, logfile=None, proto=None, log_server=None):
+        PotFactory.__init__(self, logfile, proto, log_server)
 
         self.portal = portal.Portal(MockRealm(), (checkers.InMemoryUsernamePasswordDatabaseDontUse(),))
         self.protocol.ourVersionString = random.choice([b'SSH-2.0-OpenSSH_5.5p1 Debian-6',
