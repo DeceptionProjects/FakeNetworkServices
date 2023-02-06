@@ -19,7 +19,7 @@ class PotFactory:
 
             open(self.logfile, 'a').write(line)
 
-    def alert_defender(self):
+    def alert_defender(self, user, password, host):
         if self.logserver:
-            data = {'type': 'service', 'protocol': self.proto}
+            data = {'type': 'service', 'protocol': self.proto, 'user': user, 'password': password, 'from_host': host}
             r = requests.post(self.logserver, data=data)

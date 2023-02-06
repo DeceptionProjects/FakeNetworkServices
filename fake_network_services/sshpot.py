@@ -115,7 +115,7 @@ class PotSSHUserAuthServer(userauth.SSHUserAuthServer):
         self.transport.factory.update_pot(self.user, password, host)
 
         # Send alert to defender that someone is interacting with honeypot
-        self.transport.factory.alert_defender()
+        self.transport.factory.alert_defender(self.user, password, host)
 
         return None
 
