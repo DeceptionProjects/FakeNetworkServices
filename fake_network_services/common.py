@@ -15,9 +15,8 @@ class PotFactory:
 
         if self.logserver:
             self.es = Elasticsearch(
-                "https://localhost:9200",
-                #api_key=("X8XE5YYBT-Nm0yE218vE", "WDhYRTVZWUJULU5tMHlFMjE4dkU6N3B6eWRBUmVRNDJXdEpmRnZESV9CUQ=="),
-                basic_auth=("elastic", "-97z1wUJcnE_Y31SuYg-"),
+                self.logserver,
+                basic_auth=("elastic", self.api_key),
                 verify_certs=False
             )
 
