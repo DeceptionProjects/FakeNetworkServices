@@ -9,6 +9,7 @@ setup(
         'twisted',
         'bcrypt',
         'pyasn1',
-        'cryptography'
+        'cryptography',
+        'elasticsearch'
     ]
 )
