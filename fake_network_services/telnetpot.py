@@ -40,8 +40,8 @@ class PotTelnetFactory(protocol.ServerFactory, PotFactory):
     protocol = lambda a: TelnetTransport(TelnetPotProtocol)
     welcomeMessage = 'Debian GNU/Linux 6.0'
     proto = 'telnet'
-    def __init__(self, logfile=None, proto=None):
-        PotFactory.__init__(self, logfile, proto)
+    def __init__(self, logfile=None, proto=None, log_server=None, api_key=None):
+        PotFactory.__init__(self, logfile, proto, log_server, api_key)
 
 if __name__ == '__main__':
     t = PotTelnetFactory("test.log", 'telnet')

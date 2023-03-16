@@ -115,7 +115,7 @@ class PotSSHUserAuthServer(userauth.SSHUserAuthServer):
         self.transport.factory.update_pot(self.user, password, host)
 
         # Send alert to defender that someone is interacting with honeypot
-        self.transport.factory.alert_defender(self.user, password, host)
+        self.transport.factory.alert_defender(self.user.decode("utf-8"), password.decode("utf-8"), host)
 
         return None
 
@@ -128,8 +128,8 @@ class PotSSHFactory(factory.SSHFactory, PotFactory):
     publicKeys = {b'ssh-rsa': keys.Key.fromString(publicKey)}
     privateKeys = {b'ssh-rsa': keys.Key.fromString(privateKey)}
 
-    def __init__(self, logfile=None, proto=None, log_server=None):
-        PotFactory.__init__(self, logfile, proto, log_server)
+    def __init__(self, logfile=None, proto=None, log_server=None, api_key=None):
+        PotFactory.__init__(self, logfile, proto, log_server, api_key)
 
         self.portal = portal.Portal(MockRealm(), (checkers.InMemoryUsernamePasswordDatabaseDontUse(),))
         self.protocol.ourVersionString = random.choice([b'SSH-2.0-OpenSSH_5.5p1 Debian-6',

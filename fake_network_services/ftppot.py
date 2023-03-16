@@ -141,8 +141,8 @@ class PotFTPFactory(protocol.ServerFactory, PotFactory):
     protocol = FTPpot
     welcomeMessage = b'vsFTPd 2.3.4'
     proto = 'ftp'
-    def __init__(self, logfile=None, proto=None):
-        PotFactory.__init__(self, logfile, proto)
+    def __init__(self, logfile=None, proto=None, log_server=None, api_key=None):
+        PotFactory.__init__(self, logfile, proto, log_server, api_key)
 
 if __name__ == '__main__':
     t = PotFTPFactory("test.log", 'ftp')
